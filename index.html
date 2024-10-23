@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Ali Latrach</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <style>
+        /* Reset some basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0d1117; /* Dark background color */
+            color: #f8f9fa; /* Off white text color */
+            font-family: 'Fira Code', 'Courier New', Courier, monospace; /* Coding font style */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+
+        h1 {
+            color: #f8f9fa; /* Off white text color */
+            font-size: 3em;
+            overflow: hidden; /* Ensures the text is clipped */
+            white-space: nowrap; /* Prevents the text from wrapping */
+            border-right: 0.15em solid #f8f9fa; /* Typing cursor effect */
+            display: inline-block; /* Allow width adjustment */
+            animation: caret-blink 0.75s step-end infinite;
+        }
+
+        @keyframes caret-blink {
+            50% { border-color: transparent; }
+        }
+
+        /* Responsive adjustments for mobile */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="typing-text"></h1>
+    <script>
+        const text = "Soon ";
+        const typingSpeed = 150; // Typing speed in milliseconds
+        const backspacingSpeed = 100; // Backspacing speed in milliseconds
+        const pauseTime = 2000; // Pause time after typing in milliseconds
+        const pauseAfterBackspacing = 1500; // Pause time after backspacing in milliseconds
+
+        let index = 0;
+        let isDeleting = false;
+
+        function type() {
+            const h1 = document.getElementById("typing-text");
+
+            if (isDeleting) {
+                // Backspace effect
+                h1.textContent = text.slice(0, index--);
+                if (index < 0) {
+                    isDeleting = false;
+                    setTimeout(type, pauseAfterBackspacing); // Longer pause after backspacing
+                } else {
+                    setTimeout(type, backspacingSpeed);
+                }
+            } else {
+                // Typing effect
+                h1.textContent = text.slice(0, index++);
+                if (index === text.length) {
+                    isDeleting = true;
+                    setTimeout(type, pauseTime); // Longer pause before backspacing
+                } else {
+                    setTimeout(type, typingSpeed);
+                }
+            }
+        }
+
+        // Start the typing effect
+        type();
+    </script>
+</body>
+</html>
